@@ -7,8 +7,8 @@ RUN apt-get update
 RUN apt-get install --yes build-essential inotify-tools postgresql-client
 
 # Install Phoenix packages
-RUN mix local.hex --force
-RUN mix local.rebar --force
+RUN mix local.hex --force && \
+    mix local.rebar --force
 RUN mix archive.install hex phx_new 1.4.16 
 
 # Install node

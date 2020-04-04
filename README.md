@@ -1,5 +1,7 @@
 # Cookpod
 
+[![codebeat badge](https://codebeat.co/badges/1e0be0a1-ccd4-495a-93f9-453821119bb6)](https://codebeat.co/projects/github-com-kdrozdov-cookpod-master)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
