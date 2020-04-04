@@ -1,0 +1,4 @@
+header.header.py-3
+  .row.flex-nowrap.justify-content-between.align-items-center
+    .logo.col-12.text-center
+      | Cookpod
