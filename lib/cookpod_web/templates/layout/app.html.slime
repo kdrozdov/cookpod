@@ -5,17 +5,19 @@ html lang="en"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
     meta content="width=device-width, initial-scale=1" name="viewport"
     title Cookpod · Phoenix Framework
-    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" 
+    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900"
     link rel="stylesheet" href="#{Routes.static_path(@conn, "/css/app.css")}"
-    
+
   body
-    = render("header.html")
+    = render("header.html", conn: @conn)
 
     main.container role="main"
-      = if get_flash(@conn, :info) do 
+      = if get_flash(@conn, :info) do
         p.alert.alert-info role="alert"= get_flash(@conn, :info)
-      = if get_flash(@conn, :error) do 
+      = if get_flash(@conn, :error) do
         p.alert.alert-danger role="alert"= get_flash(@conn, :error)
       = render @view_module, @view_template, assigns
+
+    = render("footer.html", conn: @conn)
 
     script type="text/javascript" src="#{Routes.static_path(@conn, "/js/app.js")}"

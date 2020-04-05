@@ -1,0 +1,39 @@
+p
+  h4 = gettext("Terms and Conditions")
+
+p
+  = gettext("These terms and conditions outline the rules and regulations \
+for the use of Cookpod Website.")
+
+p
+  = gettext("By accessing this website we assume you accept these terms and conditions. \
+Do not continue to use cookpod if you do not agree to take all of the terms \
+and conditions stated on this page.")
+
+h4
+  = gettext("Cookies")
+
+p
+  = gettext("We employ the use of cookies \
+By accessing Website Name, you agreed to use cookies \
+in agreement with the Company Name's Privacy Policy. \
+Most interactive websites use cookies to let us retrieve the user's details for each visit. \
+Cookies are used by our website to enable the functionality of certain areas \
+to make it easier for people visiting our website.")
+
+
+h4
+  = gettext("License")
+
+p
+  = gettext("Unless otherwise stated , Cookpod company and/or its licensors \
+own the intellectual property rights for all material on cookpod Website \
+All intellectual property rights are reserved.")
+
+  br
+
+  = gettext("You must not:")
+  ol
+    li = gettext("Republish material from cookpod")
+    li = gettext("Reproduce, duplicate or copy material from cookpod")
+
