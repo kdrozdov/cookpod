@@ -1,0 +1,7 @@
+.jumbotron.p-4.p-md-5.text-white.rounded.bg-dark
+  .col-md-6.px-0
+    h2.display-4.font-italic Lorem Ipsum
+    p.lead.my-3
+      ' Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      ' Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      ' when an unknown printer took a galley of type and scrambled it to make a type specimen book.

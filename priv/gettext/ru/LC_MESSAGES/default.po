@@ -1,0 +1,68 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: ru\n"
+"Plural-Forms: nplurals=3\n"
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:4
+msgid "Cookies"
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:9
+msgid "License"
+msgstr "Лицензия"
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:11
+msgid "Reproduce, duplicate or copy material from cookpod"
+msgstr "Копировать информацию c сайта cookpod"
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:11
+msgid "Republish material from cookpod"
+msgstr "Размещать информацию с сайта cookpod на других ресурсах"
+
+#, elixir-format
+#: lib/cookpod_web/templates/layout/footer.html.slime:1
+#: lib/cookpod_web/templates/page/terms.html.slime:1
+msgid "Terms and Conditions"
+msgstr "Условия и положения"
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:11
+msgid "You must not:"
+msgstr "Вы не должны"
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:2
+msgid "By accessing this website we assume you accept these terms and conditions. Do not continue to use cookpod if you do not agree to take all of the terms and conditions stated on this page."
+msgstr ""
+"Используя данный сайт, вы соглашаетесь с текущими положениями. "
+"Покиньте сайт, если Вы не согласны со всеми положениями, перечисленными ниже"
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:1
+msgid "These terms and conditions outline the rules and regulations for the use of Cookpod Website."
+msgstr "Данные положения определяют правила использования сайта cookpod"
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:9
+msgid "Unless otherwise stated , Cookpod company and/or its licensors own the intellectual property rights for all material on cookpod Website All intellectual property rights are reserved."
+msgstr ""
+"Если не указано иное, компания Cookpod и/или ее лицензиары владеют правами "
+"интеллектуальной собственности на все материалы на веб-сайте cookpod. "
+"Все права на интеллектуальную собственность защищены."
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:4
+msgid "We employ the use of cookies By accessing Website Name, you agreed to use cookies in agreement with the Company Name's Privacy Policy. Most interactive websites use cookies to let us retrieve the user's details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website."
+msgstr "Мы используем файлы cookie. Используя сайт cookpod, вы соглашаетесь использовать файлы cookie в соответствии с Политикой конфиденциальности. Файлы cookie используются нашим веб-сайтом для некоторых функций нашего сайта"

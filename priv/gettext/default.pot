@@ -1,0 +1,62 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here as no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:4
+msgid "Cookies"
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:9
+msgid "License"
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:11
+msgid "Reproduce, duplicate or copy material from cookpod"
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:11
+msgid "Republish material from cookpod"
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/layout/footer.html.slime:1
+#: lib/cookpod_web/templates/page/terms.html.slime:1
+msgid "Terms and Conditions"
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:11
+msgid "You must not:"
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:2
+msgid "By accessing this website we assume you accept these terms and conditions. Do not continue to use cookpod if you do not agree to take all of the terms and conditions stated on this page."
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:1
+msgid "These terms and conditions outline the rules and regulations for the use of Cookpod Website."
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:9
+msgid "Unless otherwise stated , Cookpod company and/or its licensors own the intellectual property rights for all material on cookpod Website All intellectual property rights are reserved."
+msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slime:4
+msgid "We employ the use of cookies By accessing Website Name, you agreed to use cookies in agreement with the Company Name's Privacy Policy. Most interactive websites use cookies to let us retrieve the user's details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website."
+msgstr ""

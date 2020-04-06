@@ -58,10 +58,10 @@ config :cookpod, CookpodWeb.Endpoint,
 config :cookpod, CookpodWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(js|scss|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/cookpod_web/(live|views)/.*(ex)$",
-      ~r"lib/cookpod_web/templates/.*(eex)$"
+      ~r{lib/cookpod_web/templates/.*(eex|slim|slime)$}
     ]
   ]
 
