@@ -1,5 +1,6 @@
 defmodule CookpodWeb.Router do
   use CookpodWeb, :router
+  import Plug.BasicAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -7,6 +8,7 @@ defmodule CookpodWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :basic_auth, Application.compile_env(:cookpod, :basic_auth)
   end
 
   pipeline :api do
