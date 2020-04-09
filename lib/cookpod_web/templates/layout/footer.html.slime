@@ -1,2 +1,2 @@
 footer.footer
-  p = link(gettext("Terms and Conditions"), to: Routes.terms_path(@conn, :terms, @conn.assigns.locale))
+  p = link(gettext("Terms and Conditions"), to: Routes.terms_path(@conn, :terms))

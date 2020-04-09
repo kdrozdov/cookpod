@@ -7,12 +7,6 @@ defmodule CookpodWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-
-    plug(
-      SetLocale,
-      gettext: CookpodWeb.Gettext,
-      default_locale: "ru"
-    )
   end
 
   pipeline :api do
@@ -20,11 +14,6 @@ defmodule CookpodWeb.Router do
   end
 
   scope "/", CookpodWeb do
-    pipe_through :browser
-    get "/", PageController, :index
-  end
-
-  scope "/:locale", CookpodWeb do
     pipe_through :browser
 
     get "/", PageController, :index
