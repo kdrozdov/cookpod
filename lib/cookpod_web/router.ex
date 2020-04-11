@@ -15,11 +15,27 @@ defmodule CookpodWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug CookpodWeb.AuthPlug
+  end
+
   scope "/", CookpodWeb do
     pipe_through :browser
 
     get "/", PageController, :index
     get "/terms", PageController, :terms, as: :terms
+
+    resources "/sessions", SessionController,
+      only: [:new, :create, :delete],
+      singleton: true
+  end
+
+  scope "/", CookpodWeb do
+    pipe_through [:browser, :protected]
+
+    scope "/profiles" do
+      get "/me", ProfileController, :me, as: :profile
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -23,5 +23,9 @@ config :cookpod, CookpodWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :cookpod, :basic_auth,
+  username: "test",
+  password: "secret"
+
 # Print only warnings and errors during test
 config :logger, level: :warn

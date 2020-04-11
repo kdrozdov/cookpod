@@ -9,9 +9,10 @@ html lang="en"
     link rel="stylesheet" href="#{Routes.static_path(@conn, "/css/app.css")}"
 
   body
-    = render("header.html", conn: @conn)
+    .container
+      = render("header.html", conn: @conn)
 
-    main.container role="main"
+    main.container.py-3 role="main"
       = if get_flash(@conn, :info) do
         p.alert.alert-info role="alert"= get_flash(@conn, :info)
       = if get_flash(@conn, :error) do
