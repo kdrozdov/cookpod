@@ -11,6 +11,7 @@ defmodule CookpodWeb.SessionController do
         conn
         |> put_session(:current_user, user["name"])
         |> redirect(to: Routes.page_path(conn, :index))
+
       errors ->
         conn
         |> put_status(422)
@@ -30,5 +31,3 @@ defmodule CookpodWeb.SessionController do
     end)
   end
 end
-
-

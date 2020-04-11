@@ -5,10 +5,9 @@ defmodule CookpodWeb.SessionView do
     case errors[field] do
       nil ->
         "form-control"
+
       _ ->
         "form-control is-invalid"
     end
   end
 end
-
-

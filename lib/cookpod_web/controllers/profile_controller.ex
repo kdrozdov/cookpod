@@ -4,6 +4,4 @@ defmodule CookpodWeb.ProfileController do
   def me(conn, _params) do
     render(conn, "me.html")
   end
-
 end
-

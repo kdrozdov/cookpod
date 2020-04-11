@@ -1,4 +1,8 @@
 defmodule CookpodWeb.SessionHelpers do
+  @moduledoc """
+  This module contains session helpers
+  """
+
   import Plug.Conn, only: [get_session: 2]
 
   def authenticated?(conn) do

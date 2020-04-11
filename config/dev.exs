@@ -12,6 +12,7 @@ config :cookpod, Cookpod.Repo,
 config :cookpod, :basic_auth,
   username: "hello",
   password: "secret"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

@@ -1,5 +1,6 @@
 defmodule CookpodWeb.Router do
   use CookpodWeb, :router
+  use Plug.ErrorHandler
   import Plug.BasicAuth
 
   pipeline :browser do
@@ -36,6 +37,24 @@ defmodule CookpodWeb.Router do
     scope "/profiles" do
       get "/me", ProfileController, :me, as: :profile
     end
+  end
+
+  def handle_errors(conn, %{kind: :error, reason: %Phoenix.Router.NoRouteError{}}) do
+    conn
+    |> fetch_session()
+    |> fetch_flash()
+    |> put_layout({CookpodWeb.LayoutView, :app})
+    |> put_view(CookpodWeb.ErrorView)
+    |> render("404.html")
+  end
+
+  def handle_errors(conn, %{kind: :error, reason: %Phoenix.ActionClauseError{}}) do
+    conn
+    |> fetch_session()
+    |> fetch_flash()
+    |> put_layout({CookpodWeb.LayoutView, :app})
+    |> put_view(CookpodWeb.ErrorView)
+    |> render("422.html")
   end
 
   # Other scopes may use custom stacks.
