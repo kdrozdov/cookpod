@@ -1,0 +1,14 @@
+
+.row
+  .col-lg-6
+    h1 Please sign in
+    = form_for :user, Routes.session_path(@conn, :create), fn form ->
+      .form-group
+        = label(form, :name, "Name")
+        = text_input(form, :name, class: form_input_class("name", @errors), placeholder: "Name")
+
+      .form-group
+        = label(form, :password, "Password")
+        = text_input(form, :password, class: form_input_class("password", @errors), placeholder: "Password", type: "password")
+
+      = submit("Submit", class: "btn btn-primary")

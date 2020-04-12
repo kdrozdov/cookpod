@@ -1,4 +1,17 @@
 header.header.py-3
   .row.flex-nowrap.justify-content-between.align-items-center
-    .logo.col-12.text-center
-      = link("Cookpod", to: Routes.page_path(@conn, :index, @conn.assigns.locale), class: "logo__link text-dark")
+    .col-4
+    .col-4.logo.text-center
+      = link("Cookpod", to: Routes.page_path(@conn, :index), class: "logo__link text-dark")
+    .col-4.d-flex.justify-content-end.align-items-center
+      = if authenticated?(@conn) do
+        ul.navbar-nav
+          li.nav-item.dropdown
+            a.btn.btn-sm.btn-outline-secondary.dropdown-toggle#navDropDownLink(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+              = current_user(@conn)
+            .dropdown-menu(aria-labelledby="navDropDownLink")
+              = link("Settings", to: Routes.profile_path(@conn, :me), class: "dropdown-item")
+              = link("Log out", to: Routes.session_path(@conn, :delete), method: :delete, class: "dropdown-item")
+
+      - else
+        = link("Sign In", to: Routes.session_path(@conn, :new), class: "btn btn-sm btn-outline-secondary")

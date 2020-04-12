@@ -1,0 +1,4 @@
+h1 Oops! Page not found
+h4 We are sorry, but the page you requested was not found
+
+= link("Go home!", to: Routes.page_path(@conn, :index), class: "btn btn-primary")

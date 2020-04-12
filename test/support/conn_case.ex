@@ -25,6 +25,18 @@ defmodule CookpodWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint CookpodWeb.Endpoint
+
+      def with_session(conn) do
+        Plug.Test.init_test_session(conn, %{})
+      end
+
+      @basic_auth_username Application.get_env(:cookpod, :basic_auth)[:username]
+      @basic_auth_password Application.get_env(:cookpod, :basic_auth)[:password]
+
+      def with_basic_auth(conn, username, password) do
+        header_content = "Basic " <> Base.encode64("#{username}:#{password}")
+        conn |> put_req_header("authorization", header_content)
+      end
     end
   end
 
