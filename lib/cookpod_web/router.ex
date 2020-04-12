@@ -10,6 +10,7 @@ defmodule CookpodWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :basic_auth, Application.compile_env(:cookpod, :basic_auth)
+    plug CookpodWeb.CurrentUserPlug
   end
 
   pipeline :api do
@@ -29,13 +30,17 @@ defmodule CookpodWeb.Router do
     resources "/sessions", SessionController,
       only: [:new, :create, :delete],
       singleton: true
+
+    resources "/profiles", ProfileController,
+      only: [:new, :create],
+      singleton: true
   end
 
   scope "/", CookpodWeb do
     pipe_through [:browser, :protected]
 
     scope "/profiles" do
-      get "/me", ProfileController, :me, as: :profile
+      get "/me", ProfileController, :me, as: :profile_me
     end
   end
 
@@ -57,8 +62,8 @@ defmodule CookpodWeb.Router do
     |> render("422.html")
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", CookpodWeb do
-  #   pipe_through :api
-  # end
+  def handle_errors(conn, _) do
+    conn
+  end
+
 end

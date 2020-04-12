@@ -8,10 +8,11 @@ header.header.py-3
         ul.navbar-nav
           li.nav-item.dropdown
             a.btn.btn-sm.btn-outline-secondary.dropdown-toggle#navDropDownLink(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-              = current_user(@conn)
+              = current_user(@conn).email
             .dropdown-menu(aria-labelledby="navDropDownLink")
-              = link("Settings", to: Routes.profile_path(@conn, :me), class: "dropdown-item")
+              = link("Settings", to: Routes.profile_me_path(@conn, :me), class: "dropdown-item")
               = link("Log out", to: Routes.session_path(@conn, :delete), method: :delete, class: "dropdown-item")
 
       - else
+        = link("Sign Up", to: Routes.profile_path(@conn, :new), class: "btn btn-sm btn-outline-secondary mr-1")
         = link("Sign In", to: Routes.session_path(@conn, :new), class: "btn btn-sm btn-outline-secondary")

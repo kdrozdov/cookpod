@@ -1,33 +1,33 @@
 defmodule CookpodWeb.SessionController do
   use CookpodWeb, :controller
 
+  alias Cookpod.Repo
+  alias Cookpod.User
+
   def new(conn, _params) do
     render(conn, "new.html", errors: %{})
   end
 
-  def create(conn, %{"user" => user}) do
-    case validate_user(user) do
-      errors when map_size(errors) == 0 ->
+  def create(conn, %{"user" => %{"email" => email, "password" => password}}) do
+    user = Repo.get_by(User, email: email)
+
+    case Argon2.check_pass(user, password) do
+      {:ok, user} ->
         conn
-        |> put_session(:current_user, user["name"])
+        |> put_session(:current_user_id, user.id)
         |> redirect(to: Routes.page_path(conn, :index))
 
-      errors ->
+      {:error, _} ->
         conn
         |> put_status(422)
-        |> render("new.html", errors: errors)
+        |> put_flash(:error, "Invalid email or password")
+        |> render("new.html")
     end
   end
 
   def delete(conn, _params) do
     conn
-    |> delete_session(:current_user)
+    |> delete_session(:current_user_id)
     |> redirect(to: Routes.page_path(conn, :index))
-  end
-
-  defp validate_user(user) do
-    Enum.reduce(user, %{}, fn {name, value}, acc ->
-      if String.length(value) == 0, do: Map.put(acc, name, "#{name} cannot be blank"), else: acc
-    end)
   end
 end
