@@ -4,7 +4,6 @@ defmodule CookpodWeb.SessionControllerTest do
   alias Cookpod.Repo
   alias Cookpod.User
 
-
   describe "new/2" do
     test "it renders new session page", %{conn: conn} do
       path = Routes.session_path(conn, :new)
@@ -54,8 +53,9 @@ defmodule CookpodWeb.SessionControllerTest do
         "password" => password,
         "password_confirmation" => password
       }
+
       changeset = User.changeset(%User{}, params)
-      {:ok, user} = changeset |> Repo.insert
+      {:ok, user} = changeset |> Repo.insert()
 
       user
     end
@@ -75,6 +75,5 @@ defmodule CookpodWeb.SessionControllerTest do
       assert get_session(conn, :current_user_id) == nil
       assert redirected_to(conn, 302) == Routes.page_path(conn, :index)
     end
-
   end
 end

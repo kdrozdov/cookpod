@@ -1,10 +1,15 @@
 defmodule Cookpod.Validators.EmailValidator do
-  import Ecto.Changeset, only: [validate_change: 3]
+  @moduledoc """
+  Validator checks mx records for the email domain. It returns an error
+  if no mx records are found
+  """
 
   @behaviour Cookpod.Validators.Behaviour
 
+  import Ecto.Changeset, only: [validate_change: 3]
+
   def call(changeset, field, options \\ []) do
-    mx_fetcher = options[:mx_fetcher] || &default_mx_fetcher/1
+    mx_fetcher = options[:mx_fetcher] || (&default_mx_fetcher/1)
 
     validate_change(changeset, field, fn _, email ->
       mx_validation =

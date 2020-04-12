@@ -36,8 +36,9 @@ defmodule CookpodWeb.ProfileControllerTest do
         "password" => password,
         "password_confirmation" => password
       }
+
       changeset = User.changeset(%User{}, params)
-      {:ok, user} = changeset |> Repo.insert
+      {:ok, user} = changeset |> Repo.insert()
 
       user
     end
@@ -59,6 +60,7 @@ defmodule CookpodWeb.ProfileControllerTest do
   describe "create/2" do
     test "it creates user if params are valid", %{conn: conn} do
       path = Routes.profile_path(conn, :create)
+
       valid_params = %{
         "email" => "1@1.com",
         "password" => "test123",
@@ -79,6 +81,7 @@ defmodule CookpodWeb.ProfileControllerTest do
 
     test "it does not create user if params are invalid", %{conn: conn} do
       path = Routes.profile_path(conn, :create)
+
       invalid_params = %{
         "email" => "1@1.com",
         "password" => "test123",

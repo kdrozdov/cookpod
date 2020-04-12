@@ -65,5 +65,4 @@ defmodule CookpodWeb.Router do
   def handle_errors(conn, _) do
     conn
   end
-
 end
