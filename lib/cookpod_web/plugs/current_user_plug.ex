@@ -17,7 +17,7 @@ defmodule CookpodWeb.CurrentUserPlug do
 
       _ ->
         id = get_session(conn, :current_user_id)
-        current_user = User |> Repo.get(id)
+        current_user = User |> Repo.get_by(id: id)
         assign(conn, :current_user, current_user)
     end
   end

@@ -5,7 +5,7 @@ config :cookpod, Cookpod.Repo,
   username: "postgres",
   password: "password",
   database: "cookpod_test",
-  hostname: "db",
+  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # Configure the database for GitHub Actions
@@ -29,3 +29,5 @@ config :cookpod, :basic_auth,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :cookpod, :email_validator, Cookpod.Validators.EmailValidatorMock

@@ -2,7 +2,7 @@ defmodule Cookpod.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Cookpod.Validators.EmailValidator
+  @email_validator Application.fetch_env!(:cookpod, :email_validator)
 
   schema "users" do
     field :email, :string
@@ -15,15 +15,14 @@ defmodule Cookpod.User do
   end
 
   @doc false
-  def changeset(user, attrs, opts \\ []) do
-    email_validator = opts[:email_validator] || EmailValidator
+  def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :password_confirmation])
     |> validate_required([:email])
     |> validate_length(:password, min: 4)
     |> unique_constraint(:email)
     |> validate_confirmation(:password)
-    |> email_validator.call(:email)
+    |> @email_validator.call(:email)
     |> encrypt_password()
   end
 
