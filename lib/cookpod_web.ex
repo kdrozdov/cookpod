@@ -40,7 +40,7 @@ defmodule CookpodWeb do
       use Phoenix.HTML
 
       import CookpodWeb.ErrorHelpers
-      import CookpodWeb.SessionHelpers
+      import CookpodWeb.AuthHelpers
       import CookpodWeb.Gettext
       alias CookpodWeb.Router.Helpers, as: Routes
     end

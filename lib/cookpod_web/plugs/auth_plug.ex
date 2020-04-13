@@ -4,14 +4,14 @@ defmodule CookpodWeb.AuthPlug do
   new session path unless current_user is set
   """
 
-  import Plug.Conn, only: [get_session: 2, halt: 1]
+  import Plug.Conn, only: [halt: 1]
   import Phoenix.Controller, only: [redirect: 2]
   alias CookpodWeb.Router.Helpers, as: Routes
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    case get_session(conn, :current_user) do
+    case conn.assigns[:current_user] do
       nil ->
         conn
         |> redirect(to: Routes.session_path(conn, :new))

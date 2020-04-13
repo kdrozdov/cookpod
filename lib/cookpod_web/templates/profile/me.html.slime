@@ -1,4 +1,4 @@
 h1 Profile
 
-'Username:
-= current_user(@conn)
+'Email:
+= current_user(@conn).email
