@@ -31,7 +31,7 @@ defmodule CookpodWeb.Router do
       only: [:new, :create, :delete],
       singleton: true
 
-    resources "/profiles", ProfileController,
+    resources "/accounts", AccountController,
       only: [:new, :create],
       singleton: true
   end
@@ -39,8 +39,8 @@ defmodule CookpodWeb.Router do
   scope "/", CookpodWeb do
     pipe_through [:browser, :protected]
 
-    scope "/profiles" do
-      get "/me", ProfileController, :me, as: :profile_me
+    scope "/accounts" do
+      get "/me", AccountController, :me, as: :account_me
     end
   end
 

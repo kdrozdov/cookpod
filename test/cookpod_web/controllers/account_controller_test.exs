@@ -1,13 +1,12 @@
-defmodule CookpodWeb.ProfileControllerTest do
+defmodule CookpodWeb.AccountControllerTest do
   use CookpodWeb.ConnCase
 
-  alias Cookpod.Repo
-  alias Cookpod.User
+  alias Cookpod.Accounts
 
   describe "me/2" do
     test "it renders profile page if user authenticated", %{conn: conn} do
       user = create_user("1@1.com", "123456")
-      path = Routes.profile_me_path(conn, :me)
+      path = Routes.account_me_path(conn, :me)
 
       conn =
         conn
@@ -16,11 +15,11 @@ defmodule CookpodWeb.ProfileControllerTest do
         |> put_session(:current_user_id, user.id)
         |> get(path)
 
-      assert html_response(conn, 200) =~ "Profile"
+      assert html_response(conn, 200) =~ "Account"
     end
 
     test "it redirects to login page unless user authenticated", %{conn: conn} do
-      path = Routes.profile_me_path(conn, :me)
+      path = Routes.account_me_path(conn, :me)
 
       conn =
         conn
@@ -37,16 +36,14 @@ defmodule CookpodWeb.ProfileControllerTest do
         "password_confirmation" => password
       }
 
-      changeset = User.changeset(%User{}, params)
-      {:ok, user} = changeset |> Repo.insert()
-
+      {:ok, user} = Accounts.create_user(params)
       user
     end
   end
 
   describe "new/2" do
     test "it renders new profile page", %{conn: conn} do
-      path = Routes.profile_path(conn, :new)
+      path = Routes.account_path(conn, :new)
 
       conn =
         conn
@@ -59,7 +56,7 @@ defmodule CookpodWeb.ProfileControllerTest do
 
   describe "create/2" do
     test "it creates user if params are valid", %{conn: conn} do
-      path = Routes.profile_path(conn, :create)
+      path = Routes.account_path(conn, :create)
 
       valid_params = %{
         "email" => "1@1.com",
@@ -73,14 +70,14 @@ defmodule CookpodWeb.ProfileControllerTest do
         |> with_session()
         |> post(path, %{"user" => valid_params})
 
-      user = Repo.get_by(User, email: "1@1.com")
+      user = Accounts.get_user_by(email: "1@1.com")
 
       assert redirected_to(conn, 302) == Routes.page_path(conn, :index)
       assert get_session(conn, :current_user_id) == user.id
     end
 
     test "it does not create user if params are invalid", %{conn: conn} do
-      path = Routes.profile_path(conn, :create)
+      path = Routes.account_path(conn, :create)
 
       invalid_params = %{
         "email" => "1@1.com",
@@ -94,7 +91,7 @@ defmodule CookpodWeb.ProfileControllerTest do
         |> with_session()
         |> post(path, %{"user" => invalid_params})
 
-      user = Repo.get_by(User, email: "1@1.com")
+      user = Accounts.get_user_by(email: "1@1.com")
 
       assert user == nil
       assert html_response(conn, 422) =~ "Please sign up"

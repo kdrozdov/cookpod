@@ -1,8 +1,7 @@
 defmodule CookpodWeb.SessionControllerTest do
   use CookpodWeb.ConnCase
 
-  alias Cookpod.Repo
-  alias Cookpod.User
+  alias Cookpod.Accounts
 
   describe "new/2" do
     test "it renders new session page", %{conn: conn} do
@@ -54,9 +53,7 @@ defmodule CookpodWeb.SessionControllerTest do
         "password_confirmation" => password
       }
 
-      changeset = User.changeset(%User{}, params)
-      {:ok, user} = changeset |> Repo.insert()
-
+      {:ok, user} = Accounts.create_user(params)
       user
     end
   end

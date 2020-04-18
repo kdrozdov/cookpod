@@ -5,8 +5,7 @@ defmodule CookpodWeb.CurrentUserPlug do
   """
 
   import Plug.Conn, only: [assign: 3, get_session: 2]
-  alias Cookpod.Repo
-  alias Cookpod.User
+  alias Cookpod.Accounts
 
   def init(opts), do: opts
 
@@ -17,7 +16,7 @@ defmodule CookpodWeb.CurrentUserPlug do
 
       _ ->
         id = get_session(conn, :current_user_id)
-        current_user = User |> Repo.get_by(id: id)
+        current_user = Accounts.get_user_by(id: id)
         assign(conn, :current_user, current_user)
     end
   end

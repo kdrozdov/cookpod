@@ -1,15 +1,14 @@
 defmodule CookpodWeb.SessionController do
   use CookpodWeb, :controller
 
-  alias Cookpod.Repo
-  alias Cookpod.User
+  alias Cookpod.Accounts
 
   def new(conn, _params) do
     render(conn, "new.html", errors: %{})
   end
 
   def create(conn, %{"user" => %{"email" => email, "password" => password}}) do
-    user = Repo.get_by(User, email: email)
+    user = Accounts.get_user_by(email: email)
 
     case Argon2.check_pass(user, password) do
       {:ok, user} ->

@@ -1,18 +1,16 @@
-defmodule CookpodWeb.ProfileController do
+defmodule CookpodWeb.AccountController do
   use CookpodWeb, :controller
 
-  alias Cookpod.User
-  alias Cookpod.Repo
+  alias Cookpod.Accounts
+  alias Cookpod.Accounts.User
 
   def new(conn, _params) do
-    changeset = User.new_changeset()
+    changeset = Accounts.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => attrs}) do
-    changeset = User.changeset(%User{}, attrs)
-
-    case Repo.insert(changeset) do
+    case Accounts.create_user(attrs) do
       {:ok, user} ->
         conn
         |> put_session(:current_user_id, user.id)

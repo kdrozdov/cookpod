@@ -2,7 +2,7 @@
 .row
   .col-lg-6
     h1 Please sign up
-    = form_for @changeset, Routes.profile_path(@conn, :create), fn form ->
+    = form_for @changeset, Routes.account_path(@conn, :create), fn form ->
       .form-group
         = label(form, :email, "Email")
         = text_input(form, :email, class: form_control(form, :email), placeholder: "Email")
