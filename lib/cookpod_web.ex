@@ -41,6 +41,7 @@ defmodule CookpodWeb do
 
       import CookpodWeb.ErrorHelpers
       import CookpodWeb.AuthHelpers
+      import CookpodWeb.NavigationHelpers
       import CookpodWeb.Gettext
       alias CookpodWeb.Router.Helpers, as: Routes
     end

@@ -1,0 +1,7 @@
+h2 Edit Recipe
+
+.row
+  .col-lg-6
+    = render "form.html", Map.put(assigns, :action, Routes.recipe_path(@conn, :update, @recipe))
+
+

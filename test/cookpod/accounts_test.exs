@@ -29,7 +29,7 @@ defmodule Cookpod.AccountsTest do
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
       result_user = Accounts.get_user!(user.id)
-      assert result_user.id  == user.id
+      assert result_user.id == user.id
     end
 
     test "get_user_by/1 returns the user with given attrs" do

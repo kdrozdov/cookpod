@@ -1,0 +1,17 @@
+
+.row.mb-3
+  .col-lg-12
+    span
+      = link to: previous_path(@conn, default: Routes.recipe_path(@conn, :index)), class: "btn btn-sm btn-info" do
+        i.fa.fa-long-arrow-left
+    span
+      = link to: Routes.recipe_path(@conn, :edit, @recipe), class: "btn btn-sm btn-warning ml-2" do
+        i.fa.fa-pencil
+
+h2 = @recipe.name
+.row
+  .col-lg-6
+    p = @recipe.description
+  .col-lg-6
+    img src="#{picture_url(@recipe)}"
+

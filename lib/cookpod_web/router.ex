@@ -11,6 +11,7 @@ defmodule CookpodWeb.Router do
     plug :put_secure_browser_headers
     plug :basic_auth, Application.compile_env(:cookpod, :basic_auth)
     plug CookpodWeb.CurrentUserPlug
+    plug NavigationHistory.Tracker, history_size: 2
   end
 
   pipeline :api do
@@ -34,6 +35,8 @@ defmodule CookpodWeb.Router do
     resources "/accounts", AccountController,
       only: [:new, :create],
       singleton: true
+
+    resources "/recipes", RecipeController
   end
 
   scope "/", CookpodWeb do
