@@ -2,16 +2,20 @@ defmodule Cookpod.Accounts do
   @moduledoc """
   The Accounts context.
   """
-  alias Cookpod.Accounts.UserQueries
 
-  def get_user!(id), do: UserQueries.get!(id)
-  def get_user_by(attrs), do: UserQueries.get_by(attrs)
+  alias Cookpod.Repo
+  alias Cookpod.Accounts.User
+
+  def get_user!(id), do: User |> Repo.get!(id)
+  def get_user_by(attrs), do: User |> Repo.get_by(attrs)
 
   def create_user(attrs \\ %{}) do
-    UserQueries.create(attrs)
+    %User{}
+    |> User.changeset(attrs)
+    |> Repo.insert()
   end
 
   def change_user(user) do
-    UserQueries.change(user)
+    User.changeset(user, %{})
   end
 end

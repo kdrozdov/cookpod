@@ -5,6 +5,8 @@ defmodule Cookpod.Recipes.Recipe do
   use Arc.Ecto.Schema
   import Ecto.Changeset
 
+  alias Cookpod.Recipes.RecipeFsm
+
   schema "recipes" do
     field :description, :string
     field :name, :string
@@ -20,7 +22,7 @@ defmodule Cookpod.Recipes.Recipe do
     |> cast(attrs, [:name, :description, :state])
     |> cast_attachments(attrs, [:picture])
     |> validate_required([:name, :description, :state])
-    |> validate_inclusion(:state, Cookpod.Recipes.RecipeFsm.states())
+    |> validate_inclusion(:state, RecipeFsm.states() |> Map.values())
     |> unique_constraint(:name)
   end
 end
