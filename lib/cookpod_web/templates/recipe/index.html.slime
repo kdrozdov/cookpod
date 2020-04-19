@@ -1,0 +1,26 @@
+
+
+.row.mb-3
+  .col-lg-12
+    = link to: Routes.recipe_path(@conn, :new), class: "btn btn-success" do
+      i.fa.fa-plus.mr-1
+      'Add recipe
+
+
+.d-flex.justify-content-start
+  = for recipe <- @recipes do
+    .card.recipe_card
+      img src="#{picture_url(recipe, :thumb)}" class="card-img-top" alt="#{recipe.name}"
+      .card-body
+        h5.text-center.card-title= recipe.name
+        .text-center
+          span
+            = link to: Routes.recipe_path(@conn, :show, recipe), class: "btn btn-sm btn-primary" do
+              i.fa.fa-eye
+          span
+            = link to: Routes.recipe_path(@conn, :edit, recipe), class: "btn btn-sm btn-warning ml-2" do
+              i.fa.fa-pencil
+          span
+            = link to: Routes.recipe_path(@conn, :delete, recipe), class: "btn btn-sm btn-danger ml-2", method: :delete, data: [confirm: "Are you sure?"] do
+              i.fa.fa-trash
+

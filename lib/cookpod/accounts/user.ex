@@ -1,4 +1,4 @@
-defmodule Cookpod.User do
+defmodule Cookpod.Accounts.User do
   @moduledoc false
 
   use Ecto.Schema
@@ -26,10 +26,6 @@ defmodule Cookpod.User do
     |> validate_confirmation(:password)
     |> @email_validator.call(:email)
     |> encrypt_password()
-  end
-
-  def new_changeset() do
-    changeset(%Cookpod.User{}, %{})
   end
 
   defp encrypt_password(changeset) do

@@ -1,0 +1,21 @@
+= form_for @changeset, @action, [multipart: true, class: "dropzone"], fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p Oops, something went wrong! Please check the errors below.
+  .form-group
+    = label f, :name, class: "control-label"
+    = text_input f, :name, class: form_control(f, :name)
+    = error_tag f, :name
+  .form-group
+    = label f, :description, class: "control-label"
+    = textarea f, :description, class: form_control(f, :description)
+    = error_tag f, :description
+  .form-group
+    = label f, :picture, class: "control-label"
+    = file_input f, :picture, class: form_control(f, :picture)
+    = error_tag f, :picture
+  div
+    = link to: previous_path(@conn, default: Routes.recipe_path(@conn, :index)), class: "btn btn-info" do
+      i.fa.fa-long-arrow-left
+    = submit "Submit", class: "btn btn-primary ml-2"
+
