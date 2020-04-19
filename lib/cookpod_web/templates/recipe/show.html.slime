@@ -7,6 +7,17 @@
     span
       = link to: Routes.recipe_path(@conn, :edit, @recipe), class: "btn btn-sm btn-warning ml-2" do
         i.fa.fa-pencil
+    = if published?(@recipe) do
+      span
+        = link to: Routes.recipe_unpublish_path(@conn, :unpublish, @recipe), method: :put, class: "btn btn-sm btn-warning ml-2" do
+          i.fa.fa-eye-slash.mr-1
+          | Unpublish
+
+    - else
+      span
+        = link to: Routes.recipe_publish_path(@conn, :publish, @recipe), method: :put, class: "btn btn-sm btn-success ml-2" do
+          i.fa.fa-eye.mr-1
+          | Publish
 
 h2 = @recipe.name
 .row

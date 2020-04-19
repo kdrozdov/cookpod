@@ -6,7 +6,11 @@ defmodule Cookpod.RecipesTest do
   describe "recipes" do
     alias Cookpod.Recipes.Recipe
 
-    @valid_attrs %{description: "some description", name: "some name"}
+    @valid_attrs %{
+      description: "some description",
+      name: "some name",
+      state: "draft"
+    }
     @update_attrs %{description: "some updated description", name: "some updated name"}
     @invalid_attrs %{description: nil, name: nil, picture: nil}
 
@@ -19,9 +23,14 @@ defmodule Cookpod.RecipesTest do
       recipe
     end
 
-    test "list_recipes/0 returns all recipes" do
-      recipe = recipe_fixture()
+    test "list_recipes/0 returns all published recipes" do
+      recipe = recipe_fixture(%{state: "published"})
       assert Recipes.list_recipes() == [recipe]
+    end
+
+    test "list_drafts/0 returns all drafts" do
+      recipe = recipe_fixture(%{state: "draft"})
+      assert Recipes.list_drafts() == [recipe]
     end
 
     test "get_recipe!/1 returns the recipe with given id" do
@@ -56,6 +65,18 @@ defmodule Cookpod.RecipesTest do
       recipe = recipe_fixture()
       assert {:ok, %Recipe{}} = Recipes.delete_recipe(recipe)
       assert_raise Ecto.NoResultsError, fn -> Recipes.get_recipe!(recipe.id) end
+    end
+
+    test "publish_recipe/1 changes state to published if recipe is draft" do
+      recipe = recipe_fixture(%{state: "draft"})
+      assert {:ok, recipe} = Recipes.publish_recipe(recipe)
+      assert recipe.state == "published"
+    end
+
+    test "unpublish_recipe/1 changes state to draft if recipe is published" do
+      recipe = recipe_fixture(%{state: "published"})
+      assert {:ok, recipe} = Recipes.unpublish_recipe(recipe)
+      assert recipe.state == "draft"
     end
 
     test "change_recipe/1 returns a recipe changeset" do

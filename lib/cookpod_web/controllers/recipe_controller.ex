@@ -9,6 +9,11 @@ defmodule CookpodWeb.RecipeController do
     render(conn, "index.html", recipes: recipes)
   end
 
+  def drafts(conn, _params) do
+    recipes = Recipes.list_drafts()
+    render(conn, "index.html", recipes: recipes)
+  end
+
   def new(conn, _params) do
     changeset = Recipes.change_recipe(%Recipe{})
     render(conn, "new.html", changeset: changeset)
@@ -23,6 +28,38 @@ defmodule CookpodWeb.RecipeController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
+    end
+  end
+
+  def publish(conn, %{"recipe_id" => id}) do
+    recipe = Recipes.get_recipe!(id)
+
+    case Recipes.publish_recipe(recipe) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Recipe was published.")
+        |> redirect(to: Routes.recipe_path(conn, :index))
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Recipe was not published.")
+        |> redirect(to: Routes.recipe_path(conn, :show, recipe))
+    end
+  end
+
+  def unpublish(conn, %{"recipe_id" => id}) do
+    recipe = Recipes.get_recipe!(id)
+
+    case Recipes.unpublish_recipe(recipe) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Recipe was unpublished.")
+        |> redirect(to: Routes.recipe_path(conn, :drafts))
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Recipe was not unpublished.")
+        |> redirect(to: Routes.recipe_path(conn, :show, recipe))
     end
   end
 

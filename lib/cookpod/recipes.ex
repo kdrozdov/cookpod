@@ -3,34 +3,29 @@ defmodule Cookpod.Recipes do
   The Recipes context.
   """
 
-  import Ecto.Query, warn: false
-  alias Cookpod.Repo
+  alias Cookpod.Recipes.RecipeQueries
+  alias Cookpod.Recipes.RecipeFsm
 
-  alias Cookpod.Recipes.Recipe
+  def list_recipes, do: RecipeQueries.list_recipes()
+  def list_drafts, do: RecipeQueries.list_drafts()
+  def get_recipe!(id), do: RecipeQueries.get!(id)
 
-  def list_recipes do
-    Repo.all(Recipe)
-  end
-
-  def get_recipe!(id), do: Repo.get!(Recipe, id)
+  def publish_recipe(recipe), do: RecipeFsm.event(recipe, :publish)
+  def unpublish_recipe(recipe), do: RecipeFsm.event(recipe, :unpublish)
 
   def create_recipe(attrs \\ %{}) do
-    %Recipe{}
-    |> Recipe.changeset(attrs)
-    |> Repo.insert()
+    RecipeQueries.create(attrs)
   end
 
-  def update_recipe(%Recipe{} = recipe, attrs) do
-    recipe
-    |> Recipe.changeset(attrs)
-    |> Repo.update()
+  def update_recipe(recipe, attrs) do
+    RecipeQueries.update(recipe, attrs)
   end
 
-  def delete_recipe(%Recipe{} = recipe) do
-    Repo.delete(recipe)
+  def delete_recipe(recipe) do
+    RecipeQueries.delete(recipe)
   end
 
-  def change_recipe(%Recipe{} = recipe) do
-    Recipe.changeset(recipe, %{})
+  def change_recipe(recipe) do
+    RecipeQueries.change(recipe)
   end
 end

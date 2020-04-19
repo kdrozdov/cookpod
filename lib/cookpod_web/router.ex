@@ -36,7 +36,12 @@ defmodule CookpodWeb.Router do
       only: [:new, :create],
       singleton: true
 
-    resources "/recipes", RecipeController
+    get "/recipes/drafts", RecipeController, :drafts
+
+    resources "/recipes", RecipeController do
+      put "/publish", RecipeController, :publish, as: :publish
+      put "/unpublish", RecipeController, :unpublish, as: :unpublish
+    end
   end
 
   scope "/", CookpodWeb do
