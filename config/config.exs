@@ -20,6 +20,15 @@ config :cookpod, CookpodWeb.Endpoint,
 
 config :cookpod, :email_validator, Cookpod.Validators.EmailValidator
 
+config :phoenix_swagger, json_library: Jason
+config :cookpod, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      router: CookpodWeb.Router,     # phoenix routes will be converted to swagger paths
+      endpoint: CookpodWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
+    ]
+  }
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -36,6 +45,9 @@ config :phoenix, :template_engines,
   # If you want to use LiveView
   slimleex: PhoenixSlime.LiveViewEngine
 
+config :mime, :types, %{
+  "application/json" => ["json"]
+}
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
