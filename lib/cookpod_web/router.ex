@@ -55,8 +55,7 @@ defmodule CookpodWeb.Router do
   scope "/api/v1", CookpodWeb.Api, as: :api do
     pipe_through :api
 
-    resources "/recipes", RecipeController,
-      only: [:index, :show]
+    resources "/recipes", RecipeController, only: [:index, :show]
   end
 
   scope "/api/swagger" do

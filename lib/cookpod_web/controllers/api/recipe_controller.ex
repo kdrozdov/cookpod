@@ -5,9 +5,9 @@ defmodule CookpodWeb.Api.RecipeController do
   alias Cookpod.Recipes
 
   swagger_path :index do
-    get "/recipes"
-    description "List of recipes"
-    response 200, "Success", Schema.ref(:RecipeResponse)
+    get("/recipes")
+    description("List of recipes")
+    response(200, "Success", Schema.ref(:RecipeResponse))
   end
 
   def index(conn, _params) do
@@ -16,12 +16,14 @@ defmodule CookpodWeb.Api.RecipeController do
   end
 
   swagger_path :show do
-    get "/recipes/{id}"
-    description "Recipe"
+    get("/recipes/{id}")
+    description("Recipe")
+
     parameters do
-      id :path, :integer, "Recipe ID", required: true, example: 1
+      id(:path, :integer, "Recipe ID", required: true, example: 1)
     end
-    response 200, "Success", Schema.ref(:RecipeResponse)
+
+    response(200, "Success", Schema.ref(:RecipeResponse))
   end
 
   def show(conn, %{"id" => id}) do
@@ -31,27 +33,32 @@ defmodule CookpodWeb.Api.RecipeController do
 
   def swagger_definitions do
     %{
-      Recipe: swagger_schema do
-        title "Recipe"
-        properties do
-          id :integer, "", required: true
-          name :string, "", required: true
-          description :string, "", required: true
+      Recipe:
+        swagger_schema do
+          title("Recipe")
+
+          properties do
+            id(:integer, "", required: true)
+            name(:string, "", required: true)
+            description(:string, "", required: true)
+          end
+
+          example(%{
+            id: 1,
+            name: "Scrambled eggs",
+            description: "Steps to cook scrambled eggs"
+          })
+        end,
+      RecipesResponse:
+        swagger_schema do
+          title("List of recipes")
+          property(:recipes, Schema.array(:Recipe), "")
+        end,
+      RecipeResponse:
+        swagger_schema do
+          title("Recipe")
+          property(:recipe, Schema.ref(:Recipe), "")
         end
-        example(%{
-          id: 1,
-          name: "Scrambled eggs",
-          description: "Steps to cook scrambled eggs"
-        })
-      end,
-      RecipesResponse: swagger_schema do
-        title("List of recipes")
-        property(:recipes, Schema.array(:Recipe), "")
-      end,
-      RecipeResponse: swagger_schema do
-        title("Recipe")
-        property(:recipe, Schema.ref(:Recipe), "")
-      end
     }
   end
 end

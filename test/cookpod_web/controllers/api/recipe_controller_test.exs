@@ -1,4 +1,3 @@
-
 defmodule CookpodWeb.Api.RecipeControllerTest do
   use CookpodWeb.ConnCase
   use PhoenixSwagger.SchemaTest, "priv/static/swagger.json"
@@ -20,6 +19,7 @@ defmodule CookpodWeb.Api.RecipeControllerTest do
   describe "index" do
     test "lists all recipes", %{conn: conn, swagger_schema: schema} do
       create_recipe()
+
       conn
       |> get(Routes.api_recipe_path(conn, :index))
       |> validate_resp_schema(schema, "RecipesResponse")
@@ -30,10 +30,11 @@ defmodule CookpodWeb.Api.RecipeControllerTest do
   describe "show" do
     test "recipe", %{conn: conn, swagger_schema: schema} do
       recipe = create_recipe()
+
       conn
-        |> get(Routes.api_recipe_path(conn, :show, recipe))
-        |> validate_resp_schema(schema, "RecipesResponse")
-        |> json_response(200)
+      |> get(Routes.api_recipe_path(conn, :show, recipe))
+      |> validate_resp_schema(schema, "RecipesResponse")
+      |> json_response(200)
     end
   end
 end
