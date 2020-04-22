@@ -14,8 +14,7 @@ defmodule CookpodWeb.Api.RecipeView do
       id: recipe.id,
       name: recipe.name,
       description: recipe.description,
-      picture: Cookpod.Recipes.Picture.url({recipe.picture.file_name, recipe})
+      picture: Cookpod.Recipes.Picture.try_url(recipe)
     }
   end
-
 end
