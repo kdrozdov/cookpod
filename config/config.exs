@@ -20,6 +20,18 @@ config :cookpod, CookpodWeb.Endpoint,
 
 config :cookpod, :email_validator, Cookpod.Validators.EmailValidator
 
+config :phoenix_swagger, json_library: Jason
+
+config :cookpod, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      # phoenix routes will be converted to swagger paths
+      router: CookpodWeb.Router,
+      # (optional) endpoint config used to set host, port and https schemes.
+      endpoint: CookpodWeb.Endpoint
+    ]
+  }
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

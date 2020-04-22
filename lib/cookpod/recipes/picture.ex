@@ -16,7 +16,7 @@ defmodule Cookpod.Recipes.Picture do
     Enum.member?(@extension_whitelist, file_extension)
   end
 
-  def filename(version, {file, scope}) do
+  def filename(version, {file, _}) do
     file_name = Path.basename(file.file_name, Path.extname(file.file_name))
     "#{version}_#{file_name}"
   end
@@ -33,5 +33,12 @@ defmodule Cookpod.Recipes.Picture do
       }"
 
     {:convert, convert_params}
+  end
+
+  def try_url(recipe) do
+    case recipe.picture do
+      nil -> nil
+      _ -> url({recipe.picture.file_name, recipe})
+    end
   end
 end
