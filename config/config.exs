@@ -18,8 +18,6 @@ config :cookpod, CookpodWeb.Endpoint,
   pubsub: [name: Cookpod.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "ZQIFgaHu"]
 
-config :cookpod, :email_validator, Cookpod.Validators.EmailValidator
-
 config :phoenix_swagger, json_library: Jason
 
 config :cookpod, :phoenix_swagger,

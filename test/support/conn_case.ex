@@ -16,6 +16,7 @@ defmodule CookpodWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  import Cookpod.Factory
 
   using do
     quote do
@@ -23,20 +24,10 @@ defmodule CookpodWeb.ConnCase do
       use Phoenix.ConnTest
       alias CookpodWeb.Router.Helpers, as: Routes
 
-      # The default endpoint for testing
       @endpoint CookpodWeb.Endpoint
 
-      def with_session(conn) do
-        Plug.Test.init_test_session(conn, %{})
-      end
-
-      @basic_auth_username Application.get_env(:cookpod, :basic_auth)[:username]
-      @basic_auth_password Application.get_env(:cookpod, :basic_auth)[:password]
-
-      def with_basic_auth(conn, username, password) do
-        header_content = "Basic " <> Base.encode64("#{username}:#{password}")
-        conn |> put_req_header("authorization", header_content)
-      end
+      import Cookpod.Factory
+      import CookpodWeb.TestAuthHelpers
     end
   end
 
@@ -47,6 +38,48 @@ defmodule CookpodWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Cookpod.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    Mox.stub_with(Cookpod.DnsClientMock, Cookpod.TestDnsClient)
+
+    context = %{conn: Phoenix.ConnTest.build_conn()}
+
+    context =
+      case basic_auth_context?(tags) do
+        true -> basic_auth_context(context)
+        _ -> context
+      end
+
+    context =
+      case authenticated_user_context?(tags) do
+        true -> authenticated_user_context(context)
+        _ -> context
+      end
+
+    {:ok, context}
+  end
+
+  def basic_auth_context?(tags) do
+    tags[:basic_auth]
+  end
+
+  def basic_auth_context(context) do
+    conn =
+      Map.fetch!(context, :conn)
+      |> CookpodWeb.TestAuthHelpers.basic_auth()
+
+    %{context | conn: conn}
+  end
+
+  def authenticated_user_context?(tags) do
+    tags[:authenticated_user] && !tags[:guest_user]
+  end
+
+  def authenticated_user_context(context) do
+    user = insert(:user)
+
+    conn =
+      Map.fetch!(context, :conn)
+      |> CookpodWeb.TestAuthHelpers.authenticate_user(user)
+
+    Map.merge(context, %{conn: conn, current_user: user})
   end
 end

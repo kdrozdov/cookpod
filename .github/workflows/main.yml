@@ -62,6 +62,6 @@ jobs:
         env: 
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
-          MIX_ENV=test mix coveralls.json &&
+          MIX_ENV=test mix do compile --warnings-as-errors, coveralls.json
           bash <(curl -s https://codecov.io/bash)
 
