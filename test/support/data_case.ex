@@ -23,6 +23,7 @@ defmodule Cookpod.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+      import Cookpod.Factory
       import Cookpod.DataCase
     end
   end
@@ -33,6 +34,8 @@ defmodule Cookpod.DataCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Cookpod.Repo, {:shared, self()})
     end
+
+    Mox.stub_with(Cookpod.DnsClientMock, Cookpod.TestDnsClient)
 
     :ok
   end

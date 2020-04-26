@@ -1,16 +1,12 @@
 defmodule CookpodWeb.SessionControllerTest do
   use CookpodWeb.ConnCase
 
-  alias Cookpod.Accounts
+  @moduletag basic_auth: true
 
   describe "new/2" do
     test "it renders new session page", %{conn: conn} do
       path = Routes.session_path(conn, :new)
-
-      conn =
-        conn
-        |> with_basic_auth(@basic_auth_username, @basic_auth_password)
-        |> get(path)
+      conn = get(conn, path)
 
       assert html_response(conn, 200) =~ "Please sign in"
     end
@@ -18,14 +14,13 @@ defmodule CookpodWeb.SessionControllerTest do
 
   describe "create/2" do
     test "it redirects to the root page if credentials are valid", %{conn: conn} do
-      user = create_user("1@1.com", "123456")
-
+      user = insert(:user_with_encrypted_password)
       credentials = %{"email" => user.email, "password" => "123456"}
       path = Routes.session_path(conn, :create)
 
       conn =
         conn
-        |> with_basic_auth(@basic_auth_username, @basic_auth_password)
+        |> init_session()
         |> post(path, %{"user" => credentials})
 
       assert get_session(conn, :current_user_id) == user.id
@@ -33,28 +28,16 @@ defmodule CookpodWeb.SessionControllerTest do
     end
 
     test "it renders sign in page if credentials are invalid", %{conn: conn} do
-      user = create_user("1@1.com", "123456")
-
-      credentials = %{"email" => user.email, "password" => "invalid"}
+      user = insert(:user_with_encrypted_password)
+      credentials = %{"email" => user.email, "password" => "1234567"}
       path = Routes.session_path(conn, :create)
 
       conn =
         conn
-        |> with_basic_auth(@basic_auth_username, @basic_auth_password)
+        |> init_session()
         |> post(path, %{"user" => credentials})
 
       assert html_response(conn, 422) =~ "Please sign in"
-    end
-
-    defp create_user(email, password) do
-      params = %{
-        "email" => email,
-        "password" => password,
-        "password_confirmation" => password
-      }
-
-      {:ok, user} = Accounts.create_user(params)
-      user
     end
   end
 
@@ -64,8 +47,7 @@ defmodule CookpodWeb.SessionControllerTest do
 
       conn =
         conn
-        |> with_basic_auth(@basic_auth_username, @basic_auth_password)
-        |> with_session()
+        |> init_session()
         |> put_session(:current_user_id, 1)
         |> delete(path)
 

@@ -53,7 +53,8 @@ defmodule Cookpod.MixProject do
       {:navigation_history, "~> 0.3"},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"},
-      {:mox, "~> 0.5", only: :test}
+      {:mox, "~> 0.5", only: :test},
+      {:ex_machina, "~> 2.4", only: :test}
     ]
   end
 

@@ -2,7 +2,6 @@ defmodule Cookpod.Validators.EmailValidatorTest do
   use Cookpod.DataCase
 
   import Mox
-  import Ecto.Changeset
 
   test "call/3 when domain has mx records" do
     Cookpod.DnsClientMock

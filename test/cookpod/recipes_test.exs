@@ -14,27 +14,18 @@ defmodule Cookpod.RecipesTest do
     @update_attrs %{description: "some updated description", name: "some updated name"}
     @invalid_attrs %{description: nil, name: nil, picture: nil}
 
-    def recipe_fixture(attrs \\ %{}) do
-      {:ok, recipe} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Recipes.create_recipe()
-
-      recipe
-    end
-
     test "list_recipes/0 returns all published recipes" do
-      recipe = recipe_fixture(%{state: "published"})
+      recipe = insert(:recipe, %{state: "published"})
       assert Recipes.list_recipes() == [recipe]
     end
 
     test "list_drafts/0 returns all drafts" do
-      recipe = recipe_fixture(%{state: "draft"})
+      recipe = insert(:recipe, %{state: "draft"})
       assert Recipes.list_drafts() == [recipe]
     end
 
     test "get_recipe!/1 returns the recipe with given id" do
-      recipe = recipe_fixture()
+      recipe = insert(:recipe)
       assert Recipes.get_recipe!(recipe.id) == recipe
     end
 
@@ -49,38 +40,38 @@ defmodule Cookpod.RecipesTest do
     end
 
     test "update_recipe/2 with valid data updates the recipe" do
-      recipe = recipe_fixture()
+      recipe = insert(:recipe)
       assert {:ok, %Recipe{} = recipe} = Recipes.update_recipe(recipe, @update_attrs)
       assert recipe.description == "some updated description"
       assert recipe.name == "some updated name"
     end
 
     test "update_recipe/2 with invalid data returns error changeset" do
-      recipe = recipe_fixture()
+      recipe = insert(:recipe)
       assert {:error, %Ecto.Changeset{}} = Recipes.update_recipe(recipe, @invalid_attrs)
       assert recipe == Recipes.get_recipe!(recipe.id)
     end
 
     test "delete_recipe/1 deletes the recipe" do
-      recipe = recipe_fixture()
+      recipe = insert(:recipe)
       assert {:ok, %Recipe{}} = Recipes.delete_recipe(recipe)
       assert_raise Ecto.NoResultsError, fn -> Recipes.get_recipe!(recipe.id) end
     end
 
     test "publish_recipe/1 changes state to published if recipe is draft" do
-      recipe = recipe_fixture(%{state: "draft"})
+      recipe = insert(:recipe, %{state: "draft"})
       assert {:ok, recipe} = Recipes.publish_recipe(recipe)
       assert recipe.state == "published"
     end
 
     test "unpublish_recipe/1 changes state to draft if recipe is published" do
-      recipe = recipe_fixture(%{state: "published"})
+      recipe = insert(:recipe, %{state: "published"})
       assert {:ok, recipe} = Recipes.unpublish_recipe(recipe)
       assert recipe.state == "draft"
     end
 
     test "change_recipe/1 returns a recipe changeset" do
-      recipe = recipe_fixture()
+      recipe = insert(:recipe)
       assert %Ecto.Changeset{} = Recipes.change_recipe(recipe)
     end
   end

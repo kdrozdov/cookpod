@@ -4,6 +4,8 @@ defmodule Cookpod.Validators.EmailValidator do
   if no mx records are found
   """
 
+  alias Cookpod.Utils.DnsResolver
+
   def call(email) do
     email
     |> parse_email()
@@ -11,8 +13,7 @@ defmodule Cookpod.Validators.EmailValidator do
   end
 
   defp validate_mx({:ok, %{email: email, domain: domain}}) do
-    domain_charlist = to_charlist(domain)
-    mx_records = dns_client().lookup(domain_charlist, :in, :mx)
+    mx_records = DnsResolver.mx_records(domain)
 
     case length(mx_records) do
       0 -> {:error, "Email domain does not have any mx records"}
@@ -34,9 +35,5 @@ defmodule Cookpod.Validators.EmailValidator do
       _ ->
         {:error, "Can't parse email"}
     end
-  end
-
-  defp dns_client do
-    Application.get_env(:cookpod, :dns_client, :inet_res)
   end
 end
