@@ -44,6 +44,7 @@ defmodule CookpodWeb do
       import CookpodWeb.NavigationHelpers
       import CookpodWeb.Gettext
       alias CookpodWeb.Router.Helpers, as: Routes
+      import Phoenix.LiveView.Helpers
     end
   end
 

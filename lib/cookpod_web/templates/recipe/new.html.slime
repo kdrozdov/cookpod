@@ -2,5 +2,5 @@ h2 New Recipe
 
 .row
   .col-lg-6
-    = render "form.html", Map.put(assigns, :action, Routes.recipe_path(@conn, :create))
+    = live_render @conn, CookpodWeb.RecipeFormLive, session: %{"action" => Routes.recipe_path(@conn, :create), "back_path" => previous_path(@conn, default: Routes.recipe_path(@conn, :index)), "csrf_token" => Plug.CSRFProtection.get_csrf_token()}
 

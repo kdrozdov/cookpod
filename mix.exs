@@ -54,7 +54,8 @@ defmodule Cookpod.MixProject do
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"},
       {:mox, "~> 0.5", only: :test},
-      {:ex_machina, "~> 2.4", only: :test}
+      {:ex_machina, "~> 2.4", only: :test},
+      {:phoenix_live_view, "~> 0.12.1"}
     ]
   end
 
