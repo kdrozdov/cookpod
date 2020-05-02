@@ -5,6 +5,8 @@ $fa-font-path: '../node_modules/font-awesome/fonts';
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/font-awesome/scss/font-awesome';
 
+@import 'helpers/live_view.scss';
+
 @import "components/header.scss";
 @import "components/logo.scss";
 @import "components/footer.scss";

@@ -22,7 +22,11 @@ defmodule Cookpod.Recipes.Recipe do
     |> cast(attrs, [:name, :description, :state])
     |> cast_attachments(attrs, [:picture])
     |> validate_required([:name, :description, :state])
+    |> validate_length(:name, min: 2)
+    |> validate_length(:description, min: 10)
     |> validate_inclusion(:state, RecipeFsm.states() |> Map.values())
     |> unique_constraint(:name)
   end
+
+  def initial_state(), do: RecipeFsm.initial_state()
 end

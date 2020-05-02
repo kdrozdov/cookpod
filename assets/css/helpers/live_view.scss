@@ -1,0 +1,8 @@
+.phx-no-feedback.invalid-feedback, .phx-no-feedback .invalid-feedback {
+  display: none;
+}
+
+.form-control.is-invalid.phx-no-feedback {
+  border: 1px solid #ced4da;
+  background-image: none;
+}

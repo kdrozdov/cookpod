@@ -43,7 +43,6 @@ config :cookpod, CookpodWeb.Gettext, default_locale: "en"
 config :phoenix, :template_engines,
   slim: PhoenixSlime.Engine,
   slime: PhoenixSlime.Engine,
-  # If you want to use LiveView
   slimleex: PhoenixSlime.LiveViewEngine
 
 # Import environment specific config. This must remain at the bottom
