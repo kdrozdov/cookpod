@@ -11,7 +11,8 @@
 # and so on) as they will fail if something goes wrong.
 
 alias Cookpod.Repo
-alias Cookpod.User
+alias Cookpod.Accounts.User
+alias Cookpod.Recipes.Product
 
 user_params = %{
   "email" => "1@gmail.com",
@@ -19,5 +20,8 @@ user_params = %{
   "password_confirmation" => "123456"
 }
 
-User.changeset(%User{}, user_params)
-|> Repo.insert()
+user = Repo.insert!(%User{user_params})
+
+leek     = Repo.insert!(%Product{name: "leek", carbs: 14, fats: 0, proteins: 2})
+garlic   = Repo.insert!(%Product{name: "garlic", carbs: 30, fats: 0, proteins: 6})
+

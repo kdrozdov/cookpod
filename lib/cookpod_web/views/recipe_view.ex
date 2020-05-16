@@ -11,4 +11,9 @@ defmodule CookpodWeb.RecipeView do
   def published?(recipe) do
     recipe.state == "published"
   end
+
+  def product_selector_options() do
+    Cookpod.Recipes.list_products()
+    |> Enum.map(&{&1.name, &1.id})
+  end
 end
