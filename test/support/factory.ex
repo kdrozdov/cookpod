@@ -23,4 +23,27 @@ defmodule Cookpod.Factory do
       state: "published"
     }
   end
+
+  def recipe_with_ingredients(recipe) do
+    insert(:ingredient, recipe: recipe)
+    insert(:ingredient, recipe: recipe)
+    recipe |> Cookpod.Repo.preload(ingredients: [:product])
+  end
+
+  def ingredient_factory do
+    %Cookpod.Recipes.Ingredient{
+      recipe: build(:recipe),
+      product: build(:product),
+      amount: 200
+    }
+  end
+
+  def product_factory do
+    %Cookpod.Recipes.Product{
+      name: sequence(:name, &"product #{&1}"),
+      carbs: 10,
+      fats: 50,
+      proteins: 100
+    }
+  end
 end

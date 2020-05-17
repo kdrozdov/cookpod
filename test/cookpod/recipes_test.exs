@@ -25,8 +25,17 @@ defmodule Cookpod.RecipesTest do
     end
 
     test "get_recipe!/1 returns the recipe with given id" do
-      recipe = insert(:recipe)
+      recipe =
+        insert(:recipe)
+        |> Cookpod.Repo.preload(ingredients: [:product])
+
       assert Recipes.get_recipe!(recipe.id) == recipe
+    end
+
+    test "new_recipe!/0 returns new recipe" do
+      recipe = Recipes.new_recipe()
+      assert recipe.state == "draft"
+      assert recipe.ingredients == []
     end
 
     test "create_recipe/1 with valid data creates a recipe" do
@@ -47,7 +56,10 @@ defmodule Cookpod.RecipesTest do
     end
 
     test "update_recipe/2 with invalid data returns error changeset" do
-      recipe = insert(:recipe)
+      recipe =
+        insert(:recipe)
+        |> Cookpod.Repo.preload(ingredients: [:product])
+
       assert {:error, %Ecto.Changeset{}} = Recipes.update_recipe(recipe, @invalid_attrs)
       assert recipe == Recipes.get_recipe!(recipe.id)
     end
@@ -73,6 +85,16 @@ defmodule Cookpod.RecipesTest do
     test "change_recipe/1 returns a recipe changeset" do
       recipe = insert(:recipe)
       assert %Ecto.Changeset{} = Recipes.change_recipe(recipe)
+    end
+
+    test "recipe_nutrients/1 returns recipe nutrients" do
+      recipe = insert(:recipe) |> recipe_with_ingredients()
+      nutrients = Recipes.recipe_nutrients(recipe)
+
+      assert nutrients.carbs == 40
+      assert nutrients.fats == 200
+      assert nutrients.proteins == 400
+      assert nutrients.calories == 3560
     end
   end
 
@@ -142,60 +164,8 @@ defmodule Cookpod.RecipesTest do
   end
 
   describe "ingredients" do
-    alias Cookpod.Recipes.Ingredient
-
-    @valid_attrs %{amount: 42}
-    @update_attrs %{amount: 43}
-    @invalid_attrs %{amount: nil}
-
-    def ingredient_fixture(attrs \\ %{}) do
-      {:ok, ingredient} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Recipes.create_ingredient()
-
-      ingredient
-    end
-
-    test "list_ingredients/0 returns all ingredients" do
-      ingredients = ingredient_fixture()
-      assert Recipes.list_ingredients() == [ingredients]
-    end
-
-    test "get_ingredient!/1 returns the ingredient with given id" do
-      ingredient = ingredient_fixture()
-      assert Recipes.get_ingredient!(ingredient.id) == ingredient
-    end
-
-    test "create_ingredient/1 with valid data creates a ingredient" do
-      assert {:ok, %Ingredient{} = ingredient} = Recipes.create_ingredient(@valid_attrs)
-      assert ingredient.amount == 42
-    end
-
-    test "create_ingredient/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Recipes.create_ingredient(@invalid_attrs)
-    end
-
-    test "update_ingredient/2 with valid data updates the ingredient" do
-      ingredient = ingredient_fixture()
-      assert {:ok, %Ingredient{} = ingredient} = Recipes.update_ingredient(ingredient, @update_attrs)
-      assert ingredient.amount == 43
-    end
-
-    test "update_ingredient/2 with invalid data returns error changeset" do
-      ingredient = ingredient_fixture()
-      assert {:error, %Ecto.Changeset{}} = Recipes.update_ingredient(ingredient, @invalid_attrs)
-      assert ingredient == Recipes.get_ingredient!(ingredient.id)
-    end
-
-    test "delete_ingredient/1 deletes the ingredient" do
-      ingredient = ingredient_fixture()
-      assert {:ok, %Ingredient{}} = Recipes.delete_ingredient(ingredient)
-      assert_raise Ecto.NoResultsError, fn -> Recipes.get_ingredient!(ingredient.id) end
-    end
-
     test "change_ingredient/1 returns a ingredient changeset" do
-      ingredient = ingredient_fixture()
+      ingredient = insert(:ingredient)
       assert %Ecto.Changeset{} = Recipes.change_ingredient(ingredient)
     end
   end

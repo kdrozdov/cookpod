@@ -5,7 +5,7 @@ defmodule Cookpod.Recipes.Recipe do
   use Arc.Ecto.Schema
   import Ecto.Changeset
 
-  alias Cookpod.Recipes.{RecipeFsm,Ingredient,Nutrients}
+  alias Cookpod.Recipes.{RecipeFsm, Ingredient, Nutrients}
 
   schema "recipes" do
     field :description, :string

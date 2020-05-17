@@ -1,9 +1,11 @@
 defmodule Cookpod.Recipes.Nutrients do
+  @moduledoc false
+
   @calories_in_carbs 4
   @calories_in_fats 9
   @calories_in_proteins 4
 
-  defstruct [carbs: 0, fats: 0, proteins: 0, calories: 0]
+  defstruct carbs: 0, fats: 0, proteins: 0, calories: 0
 
   def new(%{carbs: carbs, fats: fats, proteins: proteins} = params) do
     %__MODULE__{

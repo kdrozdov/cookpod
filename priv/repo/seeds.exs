@@ -22,6 +22,5 @@ user_params = %{
 
 user = Repo.insert!(%User{user_params})
 
-leek     = Repo.insert!(%Product{name: "leek", carbs: 14, fats: 0, proteins: 2})
-garlic   = Repo.insert!(%Product{name: "garlic", carbs: 30, fats: 0, proteins: 6})
-
+leek = Repo.insert!(%Product{name: "leek", carbs: 14, fats: 0, proteins: 2})
+garlic = Repo.insert!(%Product{name: "garlic", carbs: 30, fats: 0, proteins: 6})

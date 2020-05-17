@@ -4,7 +4,7 @@ defmodule CookpodWeb.RecipeFormLive do
   use Phoenix.LiveView
 
   alias Cookpod.Recipes
-  alias Cookpod.Recipes.{Recipe,Ingredient}
+  alias Cookpod.Recipes.{Recipe, Ingredient}
 
   def mount(_params, session, socket) do
     recipe = get_recipe(session)
@@ -16,6 +16,7 @@ defmodule CookpodWeb.RecipeFormLive do
       back_path: Map.fetch!(session, "back_path"),
       changeset: Recipes.change_recipe(recipe),
       recipe: recipe,
+      product_selector_options: product_selector_options(),
       nutrients: Recipes.recipe_nutrients(recipe)
     ]
 
@@ -42,6 +43,7 @@ defmodule CookpodWeb.RecipeFormLive do
       |> Map.get(:ingredients, socket.assigns.recipe.ingredients)
 
     position = length(existing_ingredients) + 1
+
     ingredients =
       existing_ingredients
       |> Enum.concat([
@@ -83,6 +85,11 @@ defmodule CookpodWeb.RecipeFormLive do
 
   defp get_temp_id(position) do
     to_string(:os.system_time(:millisecond) + position)
+  end
+
+  defp product_selector_options() do
+    Recipes.list_products()
+    |> Enum.map(&{&1.name, &1.id})
   end
 
   defp get_nutrients(recipe) do

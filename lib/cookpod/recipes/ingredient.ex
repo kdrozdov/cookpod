@@ -1,8 +1,10 @@
 defmodule Cookpod.Recipes.Ingredient do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Cookpod.Recipes.{Recipe,Product,Nutrients}
+  alias Cookpod.Recipes.{Recipe, Product, Nutrients}
 
   schema "ingredients" do
     field :amount, :integer, default: 0
@@ -17,7 +19,7 @@ defmodule Cookpod.Recipes.Ingredient do
   @doc false
   def changeset(ingredient, attrs) do
     ingredient
-    |> Map.put(:temp_id, (ingredient.temp_id || attrs["temp_id"]))
+    |> Map.put(:temp_id, ingredient.temp_id || attrs["temp_id"])
     |> cast(attrs, [:amount, :product_id, :delete])
     |> validate_required([:amount, :product_id])
     |> unique_constraint(:product_id, name: :ingredients_recipe_id_product_id_index)
@@ -26,7 +28,7 @@ defmodule Cookpod.Recipes.Ingredient do
 
   def nutrients(ingredient) do
     product_nutrients = Product.nutrients(ingredient.product)
-    proportion = ingredient.amount / Product.nutrients_weight
+    proportion = ingredient.amount / Product.nutrients_weight()
     Nutrients.mult_by_value(product_nutrients, proportion)
   end
 

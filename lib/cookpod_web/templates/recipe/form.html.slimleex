@@ -23,7 +23,7 @@
   = inputs_for f, :ingredients, fn i ->
     .row.mb-3
       .col-lg-5
-        = select i, :product_id, product_selector_options(), class: "form-control"
+        = select i, :product_id, @product_selector_options, class: "form-control"
       .col-lg-5
         = text_input i, :amount, type: "number", class: "form-control"
       .col-lg-2
