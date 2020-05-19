@@ -1,0 +1,7 @@
+h2 View stats
+.card(style="width: 20rem;")
+  ul.list-group.list-group-flush
+    = Enum.map @stats, fn item ->
+      li.list-group-item
+        = "id: #{Map.get(item, :id)} views: #{Map.get(item, :views)}"
+

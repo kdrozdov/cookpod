@@ -36,6 +36,7 @@ defmodule CookpodWeb.Router do
       singleton: true
 
     get "/recipes/drafts", RecipeController, :drafts
+    get "/recipes/view_stats", RecipeController, :view_stats
 
     resources "/recipes", RecipeController do
       put "/publish", RecipeController, :publish, as: :publish
