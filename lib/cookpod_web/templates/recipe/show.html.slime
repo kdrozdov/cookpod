@@ -21,6 +21,11 @@
 
 h2 = @recipe.name
 .row
+  .col-lg-12
+    p = "carbs: #{@nutrients.carbs} fats: #{@nutrients.fats} proteins: #{@nutrients.proteins}"
+    p = "calories: #{@nutrients.calories}"
+
+.row
   .col-lg-6
     p = @recipe.description
   .col-lg-6
