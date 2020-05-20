@@ -6,8 +6,7 @@ defmodule Cookpod.Recipes do
   import Ecto.Query
 
   alias Cookpod.Repo
-  alias Cookpod.Recipes.Recipe
-  alias Cookpod.Recipes.RecipeFsm
+  alias Cookpod.Recipes.{Recipe, RecipeFsm, ViewCounter}
 
   def list_recipes do
     Recipe
@@ -34,6 +33,9 @@ defmodule Cookpod.Recipes do
 
   def publish_recipe(recipe), do: RecipeFsm.event(recipe, :publish)
   def unpublish_recipe(recipe), do: RecipeFsm.event(recipe, :unpublish)
+
+  def increment_recipe_views(id), do: ViewCounter.increment(id)
+  def view_stats(), do: ViewCounter.stats()
 
   def create_recipe(attrs \\ %{}) do
     %Recipe{state: RecipeFsm.initial_state()}
