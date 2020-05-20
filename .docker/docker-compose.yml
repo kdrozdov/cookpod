@@ -10,6 +10,23 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password" 
 
+  release:
+    build:
+      context: ../.
+      dockerfile: .docker/Dockerfile.release
+    ports:
+      - '4000:4000'
+    environment: 
+      COOKPOD_HOST: "localhost"
+      PORT: "4000"
+      SECRET_KEY_BASE: "4MdgbwNdUz9KtTKcNn5A3xRRMAPKJFDrrO9PH6uBuuLas/va/dTiEPYzkobGf8d/"
+      LIVE_VIEW_SALT: "ZQIFgaHu"
+      DB_NAME: "cookpod_dev"
+      DB_HOSTNAME: "db"
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "password" 
+      BASIC_AUTH_USERNAME: "user"
+      BASIC_AUTH_PASSWORD: "secret"
 volumes: 
   database:
 
