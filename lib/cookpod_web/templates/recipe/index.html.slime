@@ -7,9 +7,9 @@
       'Add recipe
 
 
-.d-flex.justify-content-start
+.d-flex.justify-content-start.flex-wrap
   = for recipe <- @recipes do
-    .card.recipe_card
+    .card.recipe_card.mb-2
       img src="#{picture_url(recipe, :thumb)}" class="card-img-top" alt="#{recipe.name}"
       .card-body
         h5.text-center.card-title= recipe.name

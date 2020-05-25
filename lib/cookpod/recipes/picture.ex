@@ -35,6 +35,10 @@ defmodule Cookpod.Recipes.Picture do
     {:convert, convert_params}
   end
 
+  def default_url(_version) do
+    "/images/placeholders/recipe.png"
+  end
+
   def try_url(recipe) do
     case recipe.picture do
       nil -> nil
