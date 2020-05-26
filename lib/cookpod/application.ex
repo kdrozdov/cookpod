@@ -10,6 +10,7 @@ defmodule Cookpod.Application do
     children = [
       # Start the Ecto repository
       Cookpod.Repo,
+      CookpodWeb.Telemetry,
       # Start the endpoint when the application starts
       CookpodWeb.Endpoint,
       # Starts a worker by calling: Cookpod.Worker.start_link(arg)

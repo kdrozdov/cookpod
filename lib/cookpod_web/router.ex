@@ -2,6 +2,8 @@ defmodule CookpodWeb.Router do
   use CookpodWeb, :router
   use Plug.ErrorHandler
 
+  import Phoenix.LiveDashboard.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -92,5 +94,12 @@ defmodule CookpodWeb.Router do
         title: "Cookpod"
       }
     }
+  end
+
+  if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      live_dashboard "/dashboard", metrics: CookpodWeb.Telemetry
+    end
   end
 end
