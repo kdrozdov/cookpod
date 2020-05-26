@@ -29,7 +29,6 @@ defmodule CookpodWeb.Telemetry do
         tags: [:route],
         unit: {:native, :millisecond}
       ),
-
       last_value("cookpod.repo.query.idle_time", unit: {:native, :millisecond}),
       last_value("cookpod.repo.query.queue_time", unit: {:native, :millisecond}),
       last_value("cookpod.repo.query.query_time", unit: {:native, :millisecond}),
@@ -52,4 +51,3 @@ defmodule CookpodWeb.Telemetry do
     ]
   end
 end
-

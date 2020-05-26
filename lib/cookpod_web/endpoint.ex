@@ -31,6 +31,12 @@ defmodule CookpodWeb.Endpoint do
     from: Path.expand("./uploads"),
     gzip: false
 
+  if Mix.env() == :dev do
+    plug Phoenix.LiveDashboard.RequestLogger,
+      param_key: "request_logger",
+      cookie_key: "request_logger"
+  end
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
