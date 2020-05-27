@@ -50,7 +50,7 @@ defmodule Cookpod.Recipes.ViewCounter do
   end
 
   defp stream_start_fun() do
-    match_spec = [{{:"$1", :"$2"}, [], [:"$2"]}]
+    match_spec = [{{:_, :"$1"}, [], [:"$1"]}]
     :ets.select(@table_name, match_spec, @stats_batch_size)
   end
 
@@ -59,20 +59,8 @@ defmodule Cookpod.Recipes.ViewCounter do
       @end_of_table ->
         {:halt, acc}
 
-      {list, @end_of_table} ->
-        case list do
-          [] -> {:halt, acc}
-          _ -> {list, {[], @end_of_table}}
-        end
-
-      {[], continuation} ->
-        case :ets.select(continuation) do
-          {list, next_continuation} -> {list, {[], next_continuation}}
-          _ -> {:halt, acc}
-        end
-
       {list, continuation} ->
-        {list, {[], continuation}}
+        {list, :ets.select(continuation)}
     end
   end
 end
