@@ -100,7 +100,7 @@ defmodule CookpodWeb.RecipeController do
   end
 
   def view_stats(conn, _params) do
-    stats = Recipes.view_stats()
-    render(conn, "view_stats.html", stats: stats)
+    stats_stream = Recipes.view_stats_stream()
+    render(conn, "view_stats.html", stats_stream: stats_stream)
   end
 end

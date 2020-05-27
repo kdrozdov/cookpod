@@ -35,7 +35,7 @@ defmodule Cookpod.Recipes do
   def unpublish_recipe(recipe), do: RecipeFsm.event(recipe, :unpublish)
 
   def increment_recipe_views(id), do: ViewCounter.increment(id)
-  def view_stats(), do: ViewCounter.stats()
+  def view_stats_stream(), do: ViewCounter.stats_stream()
 
   def create_recipe(attrs \\ %{}) do
     %Recipe{state: RecipeFsm.initial_state()}
